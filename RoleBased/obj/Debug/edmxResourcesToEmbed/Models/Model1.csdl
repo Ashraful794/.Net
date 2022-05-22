@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Ash_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tbl_Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbl_user" Relationship="Self.FK__tbl_Role__UserId__3A81B327" FromRole="tbl_Role" ToRole="tbl_user" />
+  </EntityType>
+  <EntityType Name="tbl_Student">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Class" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Section" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tbl_user">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbl_Role" Relationship="Self.FK__tbl_Role__UserId__3A81B327" FromRole="tbl_user" ToRole="tbl_Role" />
+  </EntityType>
+  <Association Name="FK__tbl_Role__UserId__3A81B327">
+    <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="0..1" />
+    <End Role="tbl_Role" Type="Self.tbl_Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_user">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tbl_Role">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Ash_DBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tbl_Role" EntityType="Self.tbl_Role" />
+    <EntitySet Name="tbl_Student" EntityType="Self.tbl_Student" />
+    <EntitySet Name="tbl_user" EntityType="Self.tbl_user" />
+    <AssociationSet Name="FK__tbl_Role__UserId__3A81B327" Association="Self.FK__tbl_Role__UserId__3A81B327">
+      <End Role="tbl_user" EntitySet="tbl_user" />
+      <End Role="tbl_Role" EntitySet="tbl_Role" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

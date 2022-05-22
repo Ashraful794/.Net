@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNet.Identity;
+@if (User.Identity.IsAuthenticated)
+{
+    <a>Hi, @User.Identity.Name</a>
+    <li>@Html.ActionLink("Logout", "Logout", "Register")</li>
+
+    if (User.IsInRole("admin"))
+    {
+        <li>@Html.ActionLink("Create", "Create", "tbl_Student")</li>
+
+    }
+
+}
+
+else
+{
+    <li>@Html.ActionLink("Login", "Login", "Register")</li>
+    <li>@Html.ActionLink("Signup", "Signup", "Register")</li>
+}
